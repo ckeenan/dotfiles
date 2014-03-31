@@ -42,6 +42,14 @@ var tboltFull = S.op("move", {
   "height" : "screenSizeY"
 });
 
+var lineUp = function(win, opts) {
+  var rect = win.rect();
+  rect.screen = win.screen();
+  win.app().eachWindow(function(w) {
+    w.doOperation("move", rect);
+  });
+};
+
 var tboltTop = tboltFull.dup({ "height" : "screenSizeY/2" });
 var tboltTopLeft = tboltTop.dup({ "width" : "screenSizeX/2" });
 var tboltBottomLeft = tboltTopLeft.dup({ "y": "screenOriginY+screenSizeY/2" });
@@ -228,6 +236,7 @@ S.bnda({
   "9:ctrl" : tboltBottomRightOneThird,
   "=:ctrl" : tboltTop,
   "/:ctrl" : tboltBottom,
+  "space:ctrl": lineUp,
   "pad*:ctrl" : hpBottomLeft,
   "pad-:ctrl" : hpTopLeft,
   "pad+:ctrl" : hpRight,

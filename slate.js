@@ -236,7 +236,7 @@ S.bnda({
   "9:ctrl" : tboltBottomRightOneThird,
   "=:ctrl" : tboltTop,
   "/:ctrl" : tboltBottom,
-  "space:ctrl": lineUp,
+  "space:alt": lineUp,
   "pad*:ctrl" : hpBottomLeft,
   "pad-:ctrl" : hpTopLeft,
   "pad+:ctrl" : hpRight,

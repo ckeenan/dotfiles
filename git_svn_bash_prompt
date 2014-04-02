@@ -58,6 +58,13 @@ function set_git_branch {
 		state="${RED}"
 	fi
 
+	git_stash_ct="$(git stash list --since='5 day ago' | wc -l | tr -d ' ' 2> /dev/null)"
+	if [[ ${git_stash_ct} -gt 0 ]]; then
+		git_stash=" {${git_stash_ct}}"
+	else
+		git_stash=""
+	fi
+
 	# Set arrow icon based on status against remote.
 	remote_pattern="# Your branch is (.*) of"
 	if [[ ${git_status} =~ ${remote_pattern} ]]; then
@@ -81,7 +88,7 @@ function set_git_branch {
 	fi
 
 	# Set the final branch string.
-	BRANCH="${state}(${branch})${remote}${COLOR_NONE} "
+	BRANCH="${state}(${branch})${remote}${COLOR_NONE}${git_stash} "
 }
 
 # Determine the branch information for this subversion repository. No support

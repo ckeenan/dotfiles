@@ -44,10 +44,34 @@ var tboltFull = S.op("move", {
 
 var lineUp = function(win, opts) {
   var rect = win.rect();
-  rect.screen = win.screen();
+  var wid = win.screen().id();
+  win.app().eachWindow(function(w) {
+    rect.screen = w.screen().id();
+    if (wid == rect.screen)
+      w.doOperation("move", rect);
+  });
+};
+
+var aggressiveLineup = function(win, opts) {
+  var rect = win.rect();
+  rect.screen = win.screen().id();
   win.app().eachWindow(function(w) {
     w.doOperation("move", rect);
   });
+}
+
+
+var switchScreen = function(win, opts) {
+  var screen = S.screen().id();
+  screen = ( screen + 1 ) % S.screenCount();
+  var opts = {
+    "x" : "screenOriginX",
+    "y" : "screenOriginY",
+    "width" : "screenSizeX",
+    "height" : "screenSizeY",
+    "screen": screen
+  }
+  win.doOperation("move", opts);
 };
 
 var tboltTop = tboltFull.dup({ "height" : "screenSizeY/2" });
@@ -236,7 +260,9 @@ S.bnda({
   "9:ctrl" : tboltBottomRightOneThird,
   "=:ctrl" : tboltTop,
   "/:ctrl" : tboltBottom,
-  "space:alt": lineUp,
+  "backslash:ctrl": lineUp,
+  "space:alt": switchScreen,
+  "backslash:alt": aggressiveLineup,
   "pad*:ctrl" : hpBottomLeft,
   "pad-:ctrl" : hpTopLeft,
   "pad+:ctrl" : hpRight,

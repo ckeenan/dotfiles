@@ -120,6 +120,10 @@ function set_prompt_symbol () {
 	fi
 }
 
+function last_two_dirs {
+	pwd |rev| awk -F / '{print $1,$2}' | rev | sed s_\ _/_
+}
+
 # Set the full bash prompt.
 function set_bash_prompt () {
 	# Set the PROMPT_SYMBOL variable. We do this first so we don't lose the 
@@ -137,8 +141,10 @@ function set_bash_prompt () {
 
 	# Set the bash prompt variable.
 	#PS1="\u@\h \w ${BRANCH}${PROMPT_SYMBOL} "
-	PS1="\W ${BRANCH}${PROMPT_SYMBOL} "
+	#PS1="\W ${BRANCH}${PROMPT_SYMBOL} "
+	PS1="$(last_two_dirs) ${BRANCH}${PROMPT_SYMBOL} "
 }
+
 
 # Tell bash to execute this function just before displaying its prompt.
 PROMPT_COMMAND=set_bash_prompt

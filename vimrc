@@ -17,6 +17,10 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 
+
+" Set the macmeta key for use with the yankstack plugin
+set macmeta
+
 "keep cursor in middle
 set so=999
 

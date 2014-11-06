@@ -19,7 +19,9 @@ set undoreload=10000
 
 
 " Set the macmeta key for use with the yankstack plugin
-set macmeta
+if has("gui_macvim")
+    set macmeta
+endif
 
 "keep cursor in middle
 set so=999
@@ -28,7 +30,9 @@ set so=999
 " colorscheme seoul256
 " colorscheme vividchalk
 colorscheme wombat256
+" colorscheme gotham
 set guifont=Monaco:h12
+"set guifont=Hermit-bold:h12
 
 "set bg=black
 
@@ -54,7 +58,7 @@ let g:pymode_rope = 1
  let g:pymode_doc_key = 'K'
 
  "Linting
- let g:pymode_lint = 1
+ let g:pymode_lint = 0
  let g:pymode_lint_checker = "pyflakes,pep8"
  " Auto check on save
  let g:pymode_lint_write = 1
